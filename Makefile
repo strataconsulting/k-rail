@@ -9,13 +9,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# GOOS=linux GOARCH=amd64
+# GOOS=darwin
 
 ensure:
 		dep ensure
 
 build:
-		GO111MODULE=on CGO_ENABLED=0 go build -o k-rail cmd/main.go
+		GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o k-rail cmd/main.go
 
 test:
-		GO111MODULE=on CGO_ENABLED=1 go test -race -cover $(shell go list ./... | grep -v /vendor/)
-		
+		GO111MODULE=on CGO_ENABLED=0 go test -cover $(shell go list ./... | grep -v /vendor/)
+	
